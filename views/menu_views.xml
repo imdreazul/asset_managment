@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         ROOT MENU - Asset Management
+    ============================================================ -->
+    <menuitem
+        id="menu_asset_management_root"
+        name="Asset Management"
+        sequence="80"
+        web_icon="asset_management,static/description/icon.png"/>
+
+    <!-- ============================================================
+         LEVEL 0 - Asset
+    ============================================================ -->
+    <menuitem
+        id="menu_asset"
+        name="Asset"
+        parent="menu_asset_management_root"
+        action="action_asset_asset"
+        sequence="99"/>
+
+    <!-- ============================================================
+         LEVEL 1 - Configuration
+    ============================================================ -->
+    <menuitem
+        id="menu_asset_configuration"
+        name="Configuration"
+        parent="menu_asset_management_root"
+        sequence="100"/>
+
+    <!-- ============================================================
+         LEVEL 2 - Organisation
+    ============================================================ -->
+    <menuitem
+        id="menu_asset_config_organisation"
+        name="Organisation"
+        parent="menu_asset_configuration"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_asset_company"
+        name="Companies"
+        parent="menu_asset_config_organisation"
+        action="action_asset_company"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_asset_division"
+        name="Divisions"
+        parent="menu_asset_config_organisation"
+        action="action_asset_division"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_asset_district"
+        name="Districts"
+        parent="menu_asset_config_organisation"
+        action="action_asset_district"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_asset_department"
+        name="Departments"
+        parent="menu_asset_config_organisation"
+        action="action_asset_department"
+        sequence="40"/>
+
+    <menuitem
+        id="menu_asset_unit"
+        name="Units"
+        parent="menu_asset_config_organisation"
+        action="action_asset_unit"
+        sequence="50"/>
+
+    <menuitem
+        id="menu_asset_designation"
+        name="Designations"
+        parent="menu_asset_config_organisation"
+        action="action_asset_designation"
+        sequence="60"/>
+
+    <!-- ============================================================
+         LEVEL 2 - Asset Masters
+    ============================================================ -->
+    <menuitem
+        id="menu_asset_config_masters"
+        name="Asset Masters"
+        parent="menu_asset_configuration"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_asset_tag"
+        name="Tags"
+        parent="menu_asset_config_masters"
+        action="action_asset_tag"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_asset_brand"
+        name="Brands"
+        parent="menu_asset_config_masters"
+        action="action_asset_brand"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_asset_color"
+        name="Colors"
+        parent="menu_asset_config_masters"
+        action="action_asset_color"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_asset_service"
+        name="Services"
+        parent="menu_asset_config_masters"
+        action="action_asset_service"
+        sequence="40"/>
+
+    <menuitem
+        id="menu_asset_accessory"
+        name="Accessories"
+        parent="menu_asset_config_masters"
+        action="action_asset_accessory"
+        sequence="50"/>
+
+    <!-- ============================================================
+         LEVEL 2 - Classification
+    ============================================================ -->
+    <menuitem
+        id="menu_asset_config_classification"
+        name="Classification"
+        parent="menu_asset_configuration"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_asset_class"
+        name="Asset Classes"
+        parent="menu_asset_config_classification"
+        action="action_asset_class"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_asset_category"
+        name="Asset Categories"
+        parent="menu_asset_config_classification"
+        action="action_asset_category"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_asset_item"
+        name="Asset Items"
+        parent="menu_asset_config_classification"
+        action="action_asset_item"
+        sequence="30"/>
+
+    <!-- ============================================================
+         LEVEL 2 - Locations
+    ============================================================ -->
+    <menuitem
+        id="menu_asset_config_locations"
+        name="Locations"
+        parent="menu_asset_configuration"
+        sequence="40"/>
+
+    <menuitem
+        id="menu_asset_office_location"
+        name="Office Locations"
+        parent="menu_asset_config_locations"
+        action="action_asset_office_location"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_asset_floor_location"
+        name="Floor Locations"
+        parent="menu_asset_config_locations"
+        action="action_asset_floor_location"
+        sequence="20"/>
+
+    <!-- ============================================================
+         LEVEL 2 - Finance & Insurance
+    ============================================================ -->
+    <menuitem
+        id="menu_asset_config_finance"
+        name="Finance &amp; Insurance"
+        parent="menu_asset_configuration"
+        sequence="50"/>
+
+    <menuitem
+        id="menu_asset_financial_year"
+        name="Financial Year"
+        parent="menu_asset_config_finance"
+        action="action_asset_financial_year"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_asset_insurance_partner"
+        name="Insurance Partners"
+        parent="menu_asset_config_finance"
+        action="action_asset_insurance_partner"
+        sequence="20"/>
+
+
+    <!-- ============================================================
+         LEVEL 3 - Supplier
+    ============================================================ -->
+    <menuitem
+        id="menu_asset_config_supplier"
+        name="Supplier"
+        parent="menu_asset_configuration"
+        sequence="50"/>
+
+    <menuitem
+        id="menu_asset_supplier"
+        name="Supplier Info"
+        parent="menu_asset_config_supplier"
+        action="action_asset_supplier"
+        sequence="10"/>
+
+
+</odoo>

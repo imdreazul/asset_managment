@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== LIST VIEW ==================== -->
+    <record id="view_asset_category_list" model="ir.ui.view">
+        <field name="name">asset.category.list</field>
+        <field name="model">asset.category</field>
+        <field name="arch" type="xml">
+            <list string="Asset Categories" editable="bottom">
+                <field name="name" string="Category Name"/>
+                <field name="asset_class" string="Asset Class"/>
+                <field name="item_count" string="Items"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ==================== FORM VIEW ==================== -->
+    <record id="view_asset_category_form" model="ir.ui.view">
+        <field name="name">asset.category.form</field>
+        <field name="model">asset.category</field>
+        <field name="arch" type="xml">
+            <form string="Asset Category">
+                <sheet>
+<!--                    <div class="oe_button_box" name="button_box">-->
+<!--                        <button name="%(action_asset_item)s"-->
+<!--                                type="action"-->
+<!--                                class="oe_stat_button"-->
+<!--                                icon="fa-cubes"-->
+<!--                                context="{'search_default_asset_category': id}"-->
+<!--                                invisible="item_count == 0">-->
+<!--                            <field name="item_count" widget="statinfo" string="Items"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Category Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Classification">
+                            <field name="asset_class" options="{'no_create': False}"/>
+                        </group>
+                        <group string="Status">
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Items" name="items">
+                            <field name="item_ids">
+                                <list editable="bottom">
+                                    <field name="name" string="Item Name"/>
+                                    <field name="asset_class" string="Asset Class" readonly="1"/>
+                                    <field name="active" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ==================== SEARCH VIEW ==================== -->
+    <record id="view_asset_category_search" model="ir.ui.view">
+        <field name="name">asset.category.search</field>
+        <field name="model">asset.category</field>
+        <field name="arch" type="xml">
+            <search string="Search Asset Categories">
+                <field name="name" string="Category Name"
+                       filter_domain="[('name', 'ilike', self)]"/>
+                <field name="asset_class" string="Asset Class"/>
+                <separator/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Asset Class" name="group_class"
+                            context="{'group_by': 'asset_class'}"/>
+                    <filter string="Active" name="group_active" context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ==================== ACTION ==================== -->
+    <record id="action_asset_category" model="ir.actions.act_window">
+        <field name="name">Asset Categories</field>
+        <field name="res_model">asset.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_asset_category_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Asset Category
+            </p>
+            <p>Categories are the second level of asset classification, grouped under an Asset Class.</p>
+        </field>
+    </record>
+
+<!--    <record id="action_asset_category" model="ir.actions.act_window">-->
+<!--        <field name="name">Asset Categories</field>-->
+<!--        <field name="res_model">asset.category</field>-->
+<!--        <field name="view_mode">list,form</field>-->
+<!--    </record>-->
+
+</odoo>

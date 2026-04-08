@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; }
+        h1 { color: #875A7B; }
+        h2 { color: #5D4157; border-bottom: 2px solid #875A7B; padding-bottom: 4px; }
+        table { border-collapse: collapse; width: 100%; margin: 10px 0 20px 0; }
+        th { background: #875A7B; color: white; padding: 8px 12px; text-align: left; }
+        td { padding: 7px 12px; border-bottom: 1px solid #ddd; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        .badge { display:inline-block; background:#875A7B; color:white;
+                 border-radius:4px; padding:2px 8px; font-size:12px; }
+    </style>
+</head>
+<body>
+    <h1>Custom Asset Management <span class="badge">v18.0</span></h1>
+    <p>
+        A comprehensive, standalone Asset Management module for <strong>Odoo 18</strong>.
+        Completely independent from Odoo's built-in Accounting Asset module.
+    </p>
+
+    <h2>Models Included</h2>
+    <table>
+        <tr><th>Model</th><th>Description</th></tr>
+        <tr><td>asset.company</td><td>Companies for asset ownership tracking</td></tr>
+        <tr><td>asset.division</td><td>Organisational divisions</td></tr>
+        <tr><td>asset.district</td><td>Geographic districts</td></tr>
+        <tr><td>asset.department</td><td>Departments responsible for assets</td></tr>
+        <tr><td>asset.unit</td><td>Operational or organisational units</td></tr>
+        <tr><td>asset.designation</td><td>Job designations linked to assets</td></tr>
+        <tr><td>asset.tag</td><td>Tagging/labelling for quick filtering</td></tr>
+        <tr><td>asset.brand</td><td>Manufacturer / brand master</td></tr>
+        <tr><td>asset.service</td><td>Service types for maintenance</td></tr>
+        <tr><td>asset.accessory</td><td>Accessory items for assets</td></tr>
+        <tr><td>asset.financial.year</td><td>Fiscal year definitions with date validation</td></tr>
+        <tr><td>asset.color</td><td>Color coding for physical identification</td></tr>
+        <tr><td>asset.insurance.partner</td><td>Insurance companies with contact details</td></tr>
+        <tr><td>asset.class</td><td>Top-level asset classification</td></tr>
+        <tr><td>asset.category</td><td>Mid-level classification (under Class)</td></tr>
+        <tr><td>asset.item</td><td>Granular item classification (under Category)</td></tr>
+        <tr><td>asset.office.location</td><td>Physical office/building locations</td></tr>
+        <tr><td>asset.floor.location</td><td>Floor-level locations within an office</td></tr>
+    </table>
+
+    <h2>Key Features</h2>
+    <ul>
+        <li>Fully independent from Odoo Accounting asset module</li>
+        <li>Archive/unarchive support on every model</li>
+        <li>Smart stat buttons with drill-down navigation</li>
+        <li>Hierarchical classification: Class → Category → Item</li>
+        <li>Hierarchical location: Office → Floor</li>
+        <li>Date validation on Financial Year</li>
+        <li>Email validation on Insurance Partner</li>
+        <li>SQL unique constraints on all name fields</li>
+        <li>Full search, group-by and filter support on every model</li>
+        <li>Odoo 18 compatible view syntax throughout</li>
+    </ul>
+</body>
+</html>

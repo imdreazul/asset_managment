@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== LIST VIEW ==================== -->
+    <record id="view_asset_office_location_list" model="ir.ui.view">
+        <field name="name">asset.office.location.list</field>
+        <field name="model">asset.office.location</field>
+        <field name="arch" type="xml">
+            <list string="Office Locations" editable="bottom">
+                <field name="name" string="Office Location"/>
+                <field name="floor_count" string="Floors"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ==================== FORM VIEW ==================== -->
+    <record id="view_asset_office_location_form" model="ir.ui.view">
+        <field name="name">asset.office.location.form</field>
+        <field name="model">asset.office.location</field>
+        <field name="arch" type="xml">
+            <form string="Office Location">
+                <sheet>
+<!--                    <div class="oe_button_box" name="button_box">-->
+<!--                        <button name="%(action_asset_floor_location)s"-->
+<!--                                type="action"-->
+<!--                                class="oe_stat_button"-->
+<!--                                icon="fa-building"-->
+<!--                                context="{'search_default_office_location': active_id}"-->
+<!--                                invisible="floor_count == 0">-->
+<!--                            <field name="floor_count" widget="statinfo" string="Floors"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Office Location Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                    <notebook>
+                        <page string="Floor Locations" name="floors">
+                            <field name="floor_location_ids">
+                                <list editable="bottom">
+                                    <field name="name" string="Floor Name"/>
+                                    <field name="active" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ==================== SEARCH VIEW ==================== -->
+    <record id="view_asset_office_location_search" model="ir.ui.view">
+        <field name="name">asset.office.location.search</field>
+        <field name="model">asset.office.location</field>
+        <field name="arch" type="xml">
+            <search string="Search Office Locations">
+                <field name="name" string="Office Location"
+                       filter_domain="[('name', 'ilike', self)]"/>
+                <separator/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Active" name="group_active" context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ==================== ACTION ==================== -->
+    <record id="action_asset_office_location" model="ir.actions.act_window">
+        <field name="name">Office Locations</field>
+        <field name="res_model">asset.office.location</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_asset_office_location_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Office Location
+            </p>
+            <p>Office Locations represent physical buildings or sites where assets are kept.</p>
+        </field>
+    </record>
+
+</odoo>
