@@ -23,12 +23,13 @@
     'category': 'Generic Modules/Asset Management',
     'version': '1.2',
 
-    'depends': ['base', 'mail', 'web'],
+    'depends': ['base', 'mail', 'web','hr'],
     'data': [
         # Security
         'security/ir.model.access.csv',
 
         'data/ir_sequence.xml',
+        'data/asset_dashboard_data.xml',
 
         # Views - Configuration Masters
         'views/asset_company_views.xml',
@@ -50,12 +51,19 @@
         'views/asset_floor_location_views.xml',
         'views/asset_office_location_views.xml',
         'views/asset_supplier_views.xml',
+        'views/asset_user_views.xml',
+        'views/asset_insurance_type_views.xml',
 
         # Master View
         'views/asset_views.xml',
 
+        # Dashboard
+        'views/asset_dashboard_views.xml',
+
         # Menu
         'views/menu_views.xml',
+
+
     ],
     'installable': True,
     'auto_install': False,

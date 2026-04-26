@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_asset_user_form" model="ir.ui.view">
+        <field name="name">asset.user.form</field>
+        <field name="model">asset.user</field>
+        <field name="arch" type="xml">
+            <form string="Asset User">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. John Doe"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Contact Information">
+                            <field name="employee_id"/>
+                            <field name="email" widget="email"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="additional_email" widget="email"/>
+                            <field name="additional_phone" widget="phone"/>
+                        </group>
+                        <group string="Organizational Details">
+                            <field name="designation_id"/>
+                            <field name="company_id"/>
+                            <field name="division_id"/>
+                            <field name="district_id"/>
+                            <field name="department_id"/>
+                            <field name="unit_id"/>
+                            <field name="office_location_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_asset_user_list" model="ir.ui.view">
+        <field name="name">asset.user.list</field>
+        <field name="model">asset.user</field>
+        <field name="arch" type="xml">
+            <list string="Asset Users">
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="designation_id"/>
+                <field name="department_id"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_asset_user_search" model="ir.ui.view">
+        <field name="name">asset.user.search</field>
+        <field name="model">asset.user</field>
+        <field name="arch" type="xml">
+            <search string="Search Asset Users">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="email"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Company" name="group_by_company" domain="[]" context="{'group_by': 'company_id'}"/>
+                    <filter string="Department" name="group_by_department" domain="[]" context="{'group_by': 'department_id'}"/>
+                    <filter string="Designation" name="group_by_designation" domain="[]" context="{'group_by': 'designation_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_asset_user" model="ir.actions.act_window">
+        <field name="name">Asset Users</field>
+        <field name="res_model">asset.user</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_asset_user_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Asset User!
+            </p>
+            <p>
+                Manage all your asset users, their contact info, and organizational placements here.
+            </p>
+        </field>
+    </record>
+
+
+
+</odoo>

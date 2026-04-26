@@ -23,14 +23,26 @@ class AssetAsset(models.Model):
     asset_name     = fields.Char(string='Asset Name',  required=True,           tracking=True)
     asset_model    = fields.Char(string='Asset Model', tracking=True)
     description    = fields.Text(string='Description')
+    remarks    = fields.Text(string='Remarks')
 
     state = fields.Selection([
-        ('active',       'Active'),
-        ('broken',       'Broken'),
-        ('faulty',       'Faulty'),
-        ('idle',         'Idle'),
-        ('in_servicing', 'In Servicing'),
+        ('new',                  'New'),
+        ('active',               'Active'),
+        ('idle',                 'Idle'),
+        ('in_servicing',         'In Servicing'),
+        ('broken',               'Broken'),
+        ('faulty',               'Faulty'),
+        ('listed_for_dismantle', 'Listed for Dismantle'),
+        ('sold',                 'Sold'),
+        ('lost',                 'Lost'),
+        ('archived',             'Archived'),
     ], string='State', default='active', tracking=True)
+
+    is_premium_paid = fields.Boolean(
+        string='Premium Paid',
+        tracking=True,
+        help='Mark when the current insurance premium has been paid.',
+    )
 
     qty   = fields.Float(string='Quantity', default=1.0)
     image = fields.Image(string='Asset Image')
@@ -51,10 +63,12 @@ class AssetAsset(models.Model):
     f_year        = fields.Many2one('asset.financial.year', string='Financial Year', tracking=True)
 
     # ── Specifications ────────────────────────────────────────────
+
+    asset_user = fields.Many2one('asset.user', string='User', tracking=True)
     color           = fields.Many2one('asset.color', string='Color', tracking=True)
-    have_warranty   = fields.Boolean('Have Warranty?',             tracking=True)
-    warranty        = fields.Integer('Warranty (Months)',          tracking=True)
-    is_compound_asset = fields.Boolean('Is Compound Asset?',       tracking=True)
+    have_warranty   = fields.Boolean('Have Warranty?', tracking=True)
+    warranty        = fields.Integer('Warranty (Months)', tracking=True)
+    is_compound_asset = fields.Boolean('Is Compound Asset?', tracking=True)
     is_depreciation = fields.Boolean('Is Depreciation Applicable?', tracking=True)
 
     # ── Compound Asset ────────────────────────────────────────────
@@ -86,6 +100,27 @@ class AssetAsset(models.Model):
     tds_amount          = fields.Float('TDS Amount',           tracking=True)
     insurance_cost      = fields.Float('Insurance Cost',       tracking=True)
     total = fields.Float('Total', compute='_compute_total', store=True)
+
+
+    # _____ Insurance _______________________________________________
+
+    is_insurance = fields.Boolean('Is Insurance?', tracking=True)
+    insurance_partner_id = fields.Many2one('asset.insurance.partner', string='Insurance Partner')
+    insurance_type = fields.Many2one('asset.insurance.type', string='Premium Type')
+    initial_payment = fields.Float('Initial Payment/Premium Amount', tracking=True)
+    premium_date = fields.Date('First Premium Date', tracking=True)
+    insurance_complete_date = fields.Date('Insurance Complete on', tracking=True)
+    claim_n_impact = fields.Text(string='Insurance Claim & Impact', tracking=True)
+
+
+    is_reminder = fields.Boolean('Reminder', tracking=True)
+    reminder_title = fields.Char('Reminder Title', tracking=True)
+    reminder_type = fields.Selection([
+        ('one_time',       'One Time Reminder'),
+        ('recurrent',       'Recurrent Reminder'),
+    ], string='Reminder Type', tracking=True)
+    reminder_date = fields.Date('Reminder Date', tracking=True)
+
 
     # ── Locations & Organisation ──────────────────────────────────
     company             = fields.Many2one('asset.company',        string='Company',         tracking=True)

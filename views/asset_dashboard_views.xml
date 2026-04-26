@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         ASSET DASHBOARD – FORM VIEW
+    ═══════════════════════════════════════════════════════════════════ -->
+    <record id="view_asset_dashboard_form" model="ir.ui.view">
+        <field name="name">asset.dashboard.form</field>
+        <field name="model">asset.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard" create="false" edit="false" delete="false">
+                <sheet>
+                    <div style="padding: 0 8px;">
+
+                        <!-- ══════════════════════════════════════════════
+                             SECTION 1 — INSURANCE &amp; REMINDERS
+                        ══════════════════════════════════════════════ -->
+                        <h3 style="font-size:18px; font-weight:600;
+                                   margin: 16px 0 12px; color:#333;">
+                            Dashboard
+                        </h3>
+
+                        <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+
+                            <!-- Have Insurance -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#605ca8; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_insurance" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Assets
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Have enabled Insurance
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9650;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_insurance" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Premium This Month -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#00c0ef; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_premium_this_month" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Assets
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Have Premium on this month
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9650;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_premium_this_month" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Premium Done This Month -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#00a65a; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_premium_done_this_month" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Assets
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Premium DONE on this month
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9650;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_premium_done_this_month" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Premium Overdue -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#f39c12; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_premium_overdue" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Assets
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Premium date Over but not Paid
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9650;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_premium_overdue" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Reminder Upcoming -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#e6a817; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_reminder_upcoming" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Assets
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Reminder Upcoming
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#128276;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_reminder_upcoming" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Reminder Expired -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#dd4b39; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_reminder_expired" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Assets
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Reminder has been expired
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#128276;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_reminder_expired" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Report Summary -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#605ca8; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:28px; font-weight:700; line-height:1.1;">
+                                            Report <span style="font-weight:400;">Summary</span>
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:6px;">
+                                            Asset Summary Reports
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_report_summary" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Report Detail -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#00a65a; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:28px; font-weight:700; line-height:1.1;">
+                                            Report <span style="font-weight:400;">Detail</span>
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:6px;">
+                                            Asset Detail Reports
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_report_detail" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div><!-- end insurance row -->
+
+                        <!-- ══════════════════════════════════════════════
+                             SECTION 2 — STATUS WISE ASSETS SUMMARY
+                        ══════════════════════════════════════════════ -->
+                        <h3 style="font-size:18px; font-weight:600;
+                                   margin:20px 0 12px; color:#333;">
+                            Status Wise Assets Summary
+                        </h3>
+
+                        <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+
+                            <!-- Active -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#00a65a; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_active" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Active
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_active" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- New -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#28a745; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_new" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            New
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_new" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Broken -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#c9a227; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_broken" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Broken
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_broken" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Faulty -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#1a1a1a; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_faulty" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Faulty
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_faulty" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Idle -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#a4b800; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_idle" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Idle
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_idle" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- In Servicing -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#1d4fd8; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_in_servicing" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            In Servicing
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_in_servicing" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Listed for Dismantle -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#00a65a; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_listed_for_dismantle" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Listed for Dismantle
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_listed_for_dismantle" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Sold -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#5b6abf; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_sold" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Sold
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_sold" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Lost -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#dd4b39; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_lost" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Lost
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_lost" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Archived -->
+                            <div style="flex:1 1 220px; min-width:220px; max-width:280px;
+                                        background:#f39c12; border-radius:6px; overflow:hidden;
+                                        box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff;">
+                                <div style="padding:16px 18px 8px;
+                                            display:flex; justify-content:space-between;
+                                            align-items:center;">
+                                    <div>
+                                        <div style="font-size:38px; font-weight:700; line-height:1.1;">
+                                            <field name="count_archived" readonly="1" nolabel="1"/>
+                                        </div>
+                                        <div style="font-size:15px; font-weight:700; margin-top:4px;">
+                                            Archived
+                                        </div>
+                                        <div style="font-size:12px; opacity:.85; margin-top:2px;">
+                                            Assets Found
+                                        </div>
+                                    </div>
+                                    <div style="font-size:68px; opacity:.25; line-height:1;">&#9685;</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,.2); padding:6px 18px;">
+                                    <button name="action_view_archived" type="object"
+                                            style="background:none;border:none;color:#fff;
+                                                   cursor:pointer;padding:0;font-size:12px;">
+                                        More info &#8594;
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div><!-- end status row -->
+
+                        <!-- ══════════════════════════════════════════════
+                             SECTION 3 — CLASS WISE ASSETS SUMMARY
+                        ══════════════════════════════════════════════ -->
+                        <h3 style="font-size:18px; font-weight:600;
+                                   margin:20px 0 12px; color:#333;">
+                            Class Wise Assets Summary
+                        </h3>
+<!--                        <field name="class_summary_html"-->
+<!--                               widget="html"-->
+<!--                               readonly="1"-->
+<!--                               nolabel="1"-->
+<!--                               style="border:none;"/>-->
+
+                        <field name="class_ids" mode="kanban" readonly="1" nolabel="1" style="border: none;">
+                            <kanban create="false" edit="false" disable_drag_drop_record="true">
+                                <field name="name"/>
+                                <field name="dashboard_asset_count"/>
+                                <field name="dashboard_color"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div class="oe_kanban_global_click"
+                                             t-attf-style="width: 220px; margin: 8px; background: #{record.dashboard_color.raw_value};
+                                                           border-radius: 6px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,.25);
+                                                           color: #fff; display: flex; flex-direction: column; padding: 0;">
+
+                                            <div style="padding: 18px 18px 10px; display: flex; justify-content: space-between; align-items: center; flex-grow: 1;">
+                                                <div>
+                                                    <div style="font-size: 36px; font-weight: 700; line-height: 1;">
+                                                        <field name="dashboard_asset_count"/>
+                                                    </div>
+                                                    <div style="font-size: 15px; font-weight: 700; margin-top: 4px;">
+                                                        <field name="name"/>
+                                                    </div>
+                                                    <div style="font-size: 12px; opacity: .85; margin-top: 4px;">
+                                                        Class Assets Found
+                                                    </div>
+                                                </div>
+                                                <div style="font-size: 72px; opacity: .25; line-height: 1;">
+                                                    &#128722;
+                                                </div>
+                                            </div>
+
+                                            <div style="background: rgba(0,0,0,.2); padding: 0;">
+                                                <button name="action_open_assets_from_dashboard" type="object"
+                                                        style="width: 100%; background: none; border: none; color: #fff;
+                                                               cursor: pointer; padding: 6px 18px; font-size: 12px; text-align: left;">
+                                                    More info &#8594;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+
+                    </div><!-- end main wrapper -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Window Action ──────────────────────────────────────────────────── -->
+    <record id="action_asset_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">asset.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="res_id" ref="asset_dashboard_main"/>
+        <field name="target">main</field>
+        <field name="view_id" ref="view_asset_dashboard_form"/>
+    </record>
+
+</odoo>

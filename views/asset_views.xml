@@ -33,6 +33,7 @@
                             <field name="bd_voucher"/>
                         </group>
                         <group string="General Info">
+                            <field name="asset_user"/>
                             <field name="purchase_date"/>
                             <field name="supplier"/>
                             <field name="manufacture_sn"/>
@@ -45,6 +46,10 @@
 
                     <group string="Asset Value &amp; Depreciation Info">
                         <group>
+<!--                             <div class="alert alert-danger mb-3" role="alert">-->
+<!--                                <i class="fa fa-info-circle me-2"/>-->
+<!--                                *Note: When you modify these value, You must have re-adjust the depreciation section cost if previously enable depreciation.-->
+<!--                            </div>-->
                             <field name="asset_value" required="1" placeholder="Value must be greater than 0"/>
                             <field name="registration_amount"/>
                             <field name="installation_cost"/>
@@ -56,6 +61,25 @@
                             <field name="tds_amount"/>
                             <field name="total" readonly="1" force_save="1"/>
                             <field name="is_depreciation" string="Depreciation"/>
+                        </group>
+                    </group>
+
+                    <group string="Asset Insurance &amp; Reminder">
+
+                        <group>
+                            <field name="is_insurance"/>
+                            <field name="insurance_partner_id" invisible="is_insurance == False" placeholder="Choose An Option"/>
+                            <field name="insurance_type" invisible="is_insurance == False" placeholder="Choose An Option"/>
+                            <field name="initial_payment" invisible="is_insurance == False"/>
+                            <field name="premium_date" invisible="is_insurance == False"/>
+                            <field name="insurance_complete_date" invisible="is_insurance == False"/>
+                            <field name="claim_n_impact" invisible="is_insurance == False"/>
+                        </group>
+                        <group>
+                            <field name="is_reminder"/>
+                            <field name="reminder_title" invisible="is_reminder == False"/>
+                            <field name="reminder_type" invisible="is_reminder == False" placeholder="Choose An Option"/>
+                            <field name="reminder_date" invisible="is_reminder == False"/>
                         </group>
                     </group>
 
@@ -78,7 +102,7 @@
                             <field name="tags" widget="many2many_tags" placeholder="Choose an option"/>
                         </group>
                         <group>
-                            <field name="description" string="Remarks" placeholder="Enter remarks..."/>
+                            <field name="remarks" string="Remarks" placeholder="Enter remarks..."/>
                         </group>
                     </group>
 
@@ -141,6 +165,7 @@
             <list string="Assets" decoration-muted="state == 'idle'" decoration-danger="state == 'broken'">
                 <field name="qr_code_image" widget="image" class="oe_avatar" readonly="1" options="{'zoom': true, 'zoom_delay': 1000, 'preview_image':'qr_code_image'}"/>
                 <field name="qr_number" string="QR Number"/>
+                <field name="asset_name"/>
                 <field name="asset_class" readonly="id" options="{'no_create': True}"/>
                 <field name="asset_category"/>
                 <field name="asset_item"/>
@@ -151,6 +176,7 @@
                        decoration-warning="state in ('faulty', 'in_servicing')"
                        decoration-danger="state == 'broken'"
                        decoration-info="state == 'idle'"/>
+                <field name="asset_user"/>
                 <field name="description"/>
                 <field name="jv_voucher"/>
                 <field name="bd_voucher"/>
@@ -187,15 +213,26 @@
             <search string="Search Assets">
                 <field name="asset_name"/>
                 <field name="qr_number"/>
-                <field name="manufacture_sn"/>
                 <field name="asset_class"/>
+                <field name="asset_category"/>
+                <field name="asset_item"/>
+                <field name="supplier"/>
+                <field name="asset_brand"/>
+                <field name="manufacture_sn"/>
                 <separator/>
                 <filter string="Active Assets" name="active_assets" domain="[('state', '=', 'active')]"/>
+                <filter string="Idle" name="idle" domain="[('state', '=', 'idle')]"/>
                 <filter string="In Servicing" name="servicing" domain="[('state', '=', 'in_servicing')]"/>
+                <filter string="Faulty" name="faulty" domain="[('state', '=', 'faulty')]"/>
                 <filter string="Has Warranty" name="warranty" domain="[('have_warranty', '=', True)]"/>
+                <filter string="Compound Asset" name="is_compound_asset" domain="[('is_compound_asset', '=', True)]"/>
                 <group expand="0" string="Group By">
                     <filter string="Category" name="group_category" context="{'group_by':'asset_category'}"/>
                     <filter string="Location" name="group_location" context="{'group_by':'office_location'}"/>
+                    <filter string="Supplier" name="group_supplier" context="{'group_by':'supplier'}"/>
+                    <filter string="Asset Class" name="group_asset_class" context="{'group_by':'asset_class'}"/>
+                    <filter string="Asset Category" name="group_asset_category" context="{'group_by':'asset_category'}"/>
+                    <filter string="Asset Brand" name="group_asset_brand" context="{'group_by':'asset_brand'}"/>
                     <filter string="State" name="group_state" context="{'group_by':'state'}"/>
                 </group>
             </search>

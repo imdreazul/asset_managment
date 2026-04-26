@@ -52,3 +52,6 @@ class AssetInsurancePartner(models.Model):
                 raise ValidationError(
                     "Please provide a valid email address for '%s'." % record.name
                 )
+
+
+

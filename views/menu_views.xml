@@ -11,6 +11,16 @@
         web_icon="asset_management,static/description/icon.png"/>
 
     <!-- ============================================================
+         LEVEL 0 - Dashboard (first item)
+    ============================================================ -->
+    <menuitem
+        id="menu_asset_dashboard"
+        name="Dashboard"
+        parent="menu_asset_management_root"
+        action="action_asset_dashboard"
+        sequence="1"/>
+
+    <!-- ============================================================
          LEVEL 0 - Asset
     ============================================================ -->
     <menuitem
@@ -79,6 +89,17 @@
         parent="menu_asset_config_organisation"
         action="action_asset_designation"
         sequence="60"/>
+
+<!--    <menuitem id="menu_asset_users_config"-->
+<!--              name="Users"-->
+<!--              parent="menu_asset_configuration"-->
+<!--              sequence="20"/>-->
+
+    <menuitem id="menu_asset_user_action"
+              name="Asset Users"
+              parent="menu_asset_config_organisation"
+              action="action_asset_user"
+              sequence="70"/>
 
     <!-- ============================================================
          LEVEL 2 - Asset Masters
@@ -191,13 +212,20 @@
         name="Financial Year"
         parent="menu_asset_config_finance"
         action="action_asset_financial_year"
-        sequence="30"/>
+        sequence="40"/>
 
     <menuitem
         id="menu_asset_insurance_partner"
         name="Insurance Partners"
         parent="menu_asset_config_finance"
         action="action_asset_insurance_partner"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_asset_insurance_type"
+        name="Insurance Type"
+        parent="menu_asset_config_finance"
+        action="action_asset_insurance_type"
         sequence="20"/>
 
 
@@ -216,6 +244,16 @@
         parent="menu_asset_config_supplier"
         action="action_asset_supplier"
         sequence="10"/>
+
+    <!-- ============================================================
+         LEVEL 4 - User
+    ============================================================ -->
+
+<!--    <menuitem id="menu_asset_root" -->
+<!--              name="Assets Management" -->
+<!--              sequence="10"/>-->
+
+
 
 
 </odoo>
