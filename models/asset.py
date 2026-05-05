@@ -71,6 +71,50 @@ class AssetAsset(models.Model):
     is_compound_asset = fields.Boolean('Is Compound Asset?', tracking=True)
     is_depreciation = fields.Boolean('Is Depreciation Applicable?', tracking=True)
 
+    # ── Depreciation Configuration ────────────────────────────────
+    depreciation_method = fields.Selection([
+        ('reducing',      'Reducing Method'),
+        ('straight_line', 'Straight Line'),
+        ('km_per_hour',   'KM Per Hour'),
+    ], string='Depreciation Method', tracking=True)
+
+    depreciation_rate = fields.Float(
+        string='Depreciation Rate (%)',
+        digits=(16, 4),
+        tracking=True,
+        help='Annual rate as a percentage (e.g. 20 = 20% per annum). '
+             'Not used for the KM/Per-Hour method.',
+    )
+    depreciation_start_date = fields.Date(
+        string='Depreciation Start Date',
+        tracking=True,
+        help='Date from which depreciation begins.',
+    )
+    expected_km = fields.Float(
+        string='Expected KM / Service / Copy (Total)',
+        digits=(16, 2),
+        tracking=True,
+        help='Total expected life in KM, service count, or copy count. '
+             'Used only for the KM/Per-Hour/Copy method.',
+    )
+    residual_value = fields.Float(
+        string='Residual / Scrap Value',
+        digits=(16, 2),
+        tracking=True,
+        help='Estimated salvage / residual value at end of asset life '
+             '(e.g. value on transfer to employee).',
+    )
+
+    # ── Depreciation Lines ────────────────────────────────────────
+    depreciation_line_ids = fields.One2many(
+        'asset.depreciation.line', 'asset_id',
+        string='Depreciation Schedule',
+    )
+    depreciation_line_count = fields.Integer(
+        string='Lines',
+        compute='_compute_depreciation_line_count',
+    )
+
     # ── Compound Asset ────────────────────────────────────────────
     parent_asset_id = fields.Many2one(
         'asset.asset',
@@ -137,6 +181,77 @@ class AssetAsset(models.Model):
     # ─────────────────────────────────────────────────────────────
     # COMPUTED
     # ─────────────────────────────────────────────────────────────
+    # ─────────────────────────────────────────────────────────────
+    # DEPRECIATION HELPERS
+    # ─────────────────────────────────────────────────────────────
+    def _compute_depreciation_line_count(self):
+        for rec in self:
+            rec.depreciation_line_count = len(rec.depreciation_line_ids)
+
+    def action_propagate_dep_balances(self):
+        """
+        Re-links every depreciation line's opening balances to the
+        previous line's closing balances (day-ordered).
+        First line: cost opening = asset total, dep opening = 0.
+        """
+        for rec in self:
+            lines = rec.depreciation_line_ids.sorted(
+                key=lambda l: (l.date_from, l.id)
+            )
+            if not lines:
+                return
+
+            # First line seeds
+            prev_cost_closing = rec.total
+            prev_dep_closing  = 0.0
+
+            for line in lines:
+                line.write({
+                    'cost_opening_balance': prev_cost_closing,
+                    'dep_opening_balance':  prev_dep_closing,
+                })
+                # Read back after write so computed fields refresh
+                prev_cost_closing = line.cost_closing_balance
+                prev_dep_closing  = line.dep_closing_balance
+
+        return {
+            'type':    'ir.actions.client',
+            'tag':     'display_notification',
+            'params': {
+                'title':   _('Balances Propagated'),
+                'message': _(
+                    'Opening balances have been recalculated from previous period closing balances.'
+                ),
+                'type':    'success',
+                'sticky': False,
+            },
+        }
+
+    def action_generate_dep_lines(self):
+        """
+        Opens a wizard to auto-generate depreciation schedule lines.
+        (Wizard defined below as a transient model.)
+        """
+        self.ensure_one()
+        if not self.is_depreciation:
+            raise UserError(_('Please enable "Is Depreciation Applicable?" first.'))
+        if not self.depreciation_method:
+            raise UserError(_('Please select a Depreciation Method first.'))
+        if not self.depreciation_start_date:
+            raise UserError(_('Please set a Depreciation Start Date first.'))
+        return {
+            'type':    'ir.actions.act_window',
+            'name':    _('Generate Depreciation Schedule'),
+            'res_model': 'asset.depreciation.generate.wizard',
+            'view_mode': 'form',
+            'target':  'new',
+            'context': {
+                'default_asset_id':            self.id,
+                'default_depreciation_method': self.depreciation_method,
+                'default_date_from':           self.depreciation_start_date,
+            },
+        }
+
     @api.depends('asset_value', 'other_cost', 'registration_amount',
                  'vat_amount', 'installation_cost', 'tds_amount', 'insurance_cost')
     def _compute_total(self):

@@ -30,6 +30,13 @@
         action="action_asset_asset"
         sequence="99"/>
 
+    <menuitem
+        id="menu_asset_depreciation_schedule"
+        name="Depreciation Schedule"
+        parent="menu_asset_management_root"
+        action="asset_management.action_asset_depreciation_line"
+        sequence="99"/>
+
     <!-- ============================================================
          LEVEL 1 - Configuration
     ============================================================ -->

@@ -42,3 +42,6 @@ access_asset_user,asset.user,model_asset_asset,base.group_portal,1,0,0,0
 access_asset_users,asset.users,model_asset_user,base.group_user,1,1,1,1
 access_asset_insurance_type,asset.insurance.type,model_asset_insurance_type,base.group_user,1,1,1,1
 access_asset_dashboard_user,asset.dashboard.user,model_asset_dashboard,base.group_user,1,1,1,0
+access_asset_depreciation_line_manager,asset.depreciation.line.manager,model_asset_depreciation_line,base.group_user,1,1,1,1
+access_asset_depreciation_line_user,asset.depreciation.line.user,model_asset_depreciation_line,base.group_portal,1,0,0,0
+access_asset_depreciation_generate_wizard,asset.depreciation.generate.wizard,model_asset_depreciation_generate_wizard,base.group_user,1,1,1,1

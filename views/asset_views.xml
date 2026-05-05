@@ -46,10 +46,6 @@
 
                     <group string="Asset Value &amp; Depreciation Info">
                         <group>
-<!--                             <div class="alert alert-danger mb-3" role="alert">-->
-<!--                                <i class="fa fa-info-circle me-2"/>-->
-<!--                                *Note: When you modify these value, You must have re-adjust the depreciation section cost if previously enable depreciation.-->
-<!--                            </div>-->
                             <field name="asset_value" required="1" placeholder="Value must be greater than 0"/>
                             <field name="registration_amount"/>
                             <field name="installation_cost"/>
@@ -60,9 +56,49 @@
                             <field name="vat_amount"/>
                             <field name="tds_amount"/>
                             <field name="total" readonly="1" force_save="1"/>
-                            <field name="is_depreciation" string="Depreciation"/>
+                            <field name="is_depreciation" string="Depreciation Applicable"/>
                         </group>
                     </group>
+
+                    <!-- ── Depreciation Configuration (shown when is_depreciation is on) ── -->
+                    <group string="Depreciation Configuration"
+                           invisible="not is_depreciation">
+                        <group>
+                            <field name="depreciation_method"
+                                   placeholder="Select Method..."
+                                   required="is_depreciation"/>
+                            <field name="depreciation_rate"
+                                   invisible="depreciation_method == 'km_per_hour'"
+                                   placeholder="e.g. 20 for 20% p.a."/>
+                            <field name="depreciation_start_date"
+                                   required="is_depreciation"/>
+                        </group>
+                        <group>
+                            <field name="expected_km"
+                                   invisible="depreciation_method != 'km_per_hour'"
+                                   placeholder="Total expected KM / copies / services"/>
+                            <field name="residual_value"
+                                   placeholder="Residual / Scrap / Transfer Value"/>
+                            <field name="depreciation_line_count"
+                                   string="Schedule Lines"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+
+                    <!-- ── Depreciation Action Buttons ── -->
+                    <div class="o_row mt-2 mb-2" invisible="not is_depreciation">
+                        <button name="action_generate_dep_lines"
+                                string="Generate Schedule"
+                                type="object"
+                                class="btn btn-primary me-2"
+                                icon="fa-calendar-plus-o"/>
+                        <button name="action_propagate_dep_balances"
+                                string="Re-Link Opening Balances"
+                                type="object"
+                                class="btn btn-secondary"
+                                icon="fa-refresh"
+                                confirm="This will overwrite all opening balances from previous period closing values. Proceed?"/>
+                    </div>
 
                     <group string="Asset Insurance &amp; Reminder">
 
@@ -147,6 +183,79 @@
                                     <field name="component_count" string="Total Components" readonly="1"/>
                                 </group>
                             </group>
+                        </page>
+                    </notebook>
+
+                    <!-- ── Depreciation Schedule Tab ── -->
+                    <notebook invisible="not is_depreciation">
+                        <page string="Depreciation Schedule" name="depreciation_schedule">
+
+                            <div class="alert alert-info mb-3" role="alert">
+                                <i class="fa fa-info-circle me-2"/>
+                                <strong>How to use:</strong>
+                                Click <b>Generate Schedule</b> above to auto-create period lines.
+                                Then adjust <b>Cost Addition / Adjustment</b> and
+                                <b>Depreciation Adjustment</b> columns as needed.
+                                Use <b>Re-Link Opening Balances</b> to re-chain all periods after any manual edits.
+                            </div>
+
+                            <!-- Method legend -->
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <span class="badge bg-primary me-2"
+                                          invisible="depreciation_method != 'reducing'">
+                                        Reducing Method
+                                    </span>
+                                    <span class="badge bg-success me-2"
+                                          invisible="depreciation_method != 'straight_line'">
+                                        Straight Line
+                                    </span>
+                                    <span class="badge bg-warning text-dark me-2"
+                                          invisible="depreciation_method != 'km_per_hour'">
+                                        KM / Per Hour
+                                    </span>
+                                </div>
+                            </div>
+
+                            <field name="depreciation_line_ids"
+                                   context="{'default_asset_id': id}">
+                                <list string="Depreciation Lines"
+                                      editable="bottom"
+                                      decoration-info="written_down_value &gt; 0"
+                                      decoration-muted="written_down_value &lt;= 0">
+
+                                    <field name="period_type"   string="Period"/>
+                                    <field name="date_from"     string="From"/>
+                                    <field name="date_to"       string="To"/>
+                                    <field name="days"          string="Days"   readonly="1"/>
+                                    <field name="months"        string="Months" readonly="1" optional="hide"/>
+                                    <field name="years"         string="Years"  readonly="1" optional="hide" digits="[16,4]"/>
+
+                                    <!-- COST -->
+                                    <field name="cost_opening_balance"  string="Cost Opening" digits="[16,2]"/>
+                                    <field name="cost_addition"         string="+ Addition"   digits="[16,2]"/>
+                                    <field name="cost_adjustment"       string="- Adjustment" digits="[16,2]"/>
+                                    <field name="cost_closing_balance"  string="Cost Closing" digits="[16,2]" readonly="1"/>
+
+                                    <!-- KM usage – only relevant for km_per_hour -->
+                                    <field name="km_this_period"
+                                           string="KM / Usage"
+                                           digits="[16,2]"
+                                           optional="hide"/>
+
+                                    <!-- DEPRECIATION -->
+                                    <field name="dep_opening_balance"   string="Dep Opening"  digits="[16,2]"/>
+                                    <field name="dep_charge"            string="Dep Charge"   digits="[16,2]" readonly="1"/>
+                                    <field name="dep_adjustment"        string="Dep Adj."     digits="[16,2]"/>
+                                    <field name="dep_closing_balance"   string="Dep Closing"  digits="[16,2]" readonly="1"/>
+
+                                    <!-- WDV -->
+                                    <field name="written_down_value"    string="WDV"          digits="[16,2]" readonly="1"/>
+
+                                    <field name="depreciation_method"   column_invisible="1"/>
+                                </list>
+                            </field>
+
                         </page>
                     </notebook>
 

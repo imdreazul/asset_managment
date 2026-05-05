@@ -19,6 +19,8 @@ from . import asset_office_location
 from . import asset_floor_location
 from . import asset_supplier
 from . import asset
+from . import asset_depreciation
+from . import asset_depreciation_wizard
 from . import asset_user
 from . import asset_insurance_type
 from . import asset_dashboard

@@ -56,6 +56,7 @@
 
         # Master View
         'views/asset_views.xml',
+        'views/asset_depreciation_views.xml',
 
         # Dashboard
         'views/asset_dashboard_views.xml',
